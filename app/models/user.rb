@@ -9,8 +9,7 @@ class User < ApplicationRecord
          validates :nickname, presence: true
          validates :email, uniqueness: true
          validates :birth_date, presence: true
-         validates :password,confirmation: true
-         validates :password_confirmation, presence: true
+         validates :encrypted_password, presence: true
          with_options presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]+\z/} do
            validates :last_name
            validates :first_name
