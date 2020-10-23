@@ -2,68 +2,69 @@
 
 ## users テーブル
 
-| Column          | Type   | Options     |
-| --------        | ------ | ----------- |
-| email           | string | not null    |
-| password        | string | not null    |
-| nickname        | string | not null    |
-| birth_date      | date   | not null    |
-| last name       | string | not null    |
-| first name      | string | not null    |
-| last name kana  | string | not null    |
-| first name kana | string | not null    |
+| Column             | Type   | Options     |
+| --------           | ------ | ----------- |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| nickname           | string | null: false |
+| birth_date         | date   | null: false |
+| last_name          | string | null: false |
+| first_name         | string | null: false |
+| last_name_kana     | string | null: false |
+| first_name_kana    | string | null: false |
 
 ### Association
 
 - has_many :items
-- has_many :buys
+- has_many :user_items
 
 ## items テーブル
 
 | Column          | Type       | Options     |
 | ------          | ------     | ----------- |
-| name            | string     | not null--- |
-| text            | text       | not null--- |
-| price           | integer    | not null--- |
-| status_id       | integer    | not null--- |
-| delivery fee_id | integer    | not null--- |
-| prefecture_id   | integer    | not null--- |
-| delivery day_id | integer    | not null--- |
-| category_id     | integer    | not null--- |
-| user            | references | not null--- |
+| name            | string     | null: false |
+| text            | text       | null: false |
+| price           | integer    | null: false |
+| status_id       | integer    | null: false |
+| delivery_fee_id | integer    | null: false |
+| prefecture_id   | integer    | null: false |
+| delivery_day_id | integer    | null: false |
+| category_id     | integer    | null: false |
+| user            | references | null: false |
 
 
 ### Association
 
 - belongs_to :user
-- has_one buy
+- has_one :user_item
 
-## buys テーブル
 
-| Column          | Type       | Options  |
-| -------         | ---------- | -------- |
-| postal code     | string     | not null |
-| prefecture_id   | integer    | not null |
-| city            | string     | not null |
-| address         | string     | not null |
-| building        | string     | -------- |
-| phone number    | string     | not null |
-| user            | references | not null |
+## addresses テーブル
+
+| Column          | Type       | Options                           |
+| -------         | ---------- | --------                          |
+| postal_code     | string     | null: false                       |
+| prefecture_id   | integer    | null: false                       |
+| city            | string     | null: false                       |
+| address         | string     | null: false                       |
+| building        | string     | --------                          |
+| phone_number    | string     | null: false                       |
+| user_item       | references | null: false, foreign_key: true    |
 
 
 ### Association
 
+- belongs_to :user_item
+
+## user_items テーブル
+
+| Column  | Type       | Options                           |
+| ------  | ------     | -----------                       |
+| user    | references | null: false, foreign_key: true    |
+| item    | references | null: false, foreign_key: true    |
+
+### Association
+
+- has_one :address
 - belongs_to :user
 - belongs_to :item
-
-## user_item テーブル
-
-| Column  | Type       | Options     |
-| ------  | ------     | ----------- |
-| user_id | references | not null    |
-| item_id | references | not null    |
-
-### Association
-
-- has_one :user
-- has_one :item
