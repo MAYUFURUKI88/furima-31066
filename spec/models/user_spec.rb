@@ -54,7 +54,7 @@ describe User do
       expect(@user.errors.full_messages).to include
     end
     it 'パスワードとパスワード(確認用)が一致しないと登録できない' do
-      @user.encrypted_password = 'hogehoge1'
+      @user.password = 'hogehoge1'
       @user.password_confirmation = 'hoge1'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
