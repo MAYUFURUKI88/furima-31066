@@ -6,11 +6,11 @@ class User < ApplicationRecord
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates :password, format: { with: VALID_PASSWORD_REGEX }
-  # validates :password, presence: true, length: { minimum: 6 }
-  validates :nickname, presence: true
-  #  validates :email, uniqueness: true
-  validates :birth_date, presence: true
-  validates :password_confirmation, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :birth_date
+    validates :password_confirmation
+  end
   with_options presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/ } do
     validates :last_name
     validates :first_name
