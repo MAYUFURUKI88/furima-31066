@@ -13,7 +13,7 @@ class Buy
   validates :prefecture_id, numericality: { other_than: 1 }
 
   def save
-    @user_item = UserItem.create!(user_id: user_id, item_id: item_id)
+    @user_item = UserItem.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address: address, building: building, phone_number: phone_number, user_item_id: @user_item.id)
   end
 end
