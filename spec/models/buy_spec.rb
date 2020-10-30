@@ -48,7 +48,6 @@ describe Buy do
   it "電話番号は１１桁以内でないと保存できない" do
     @buy.phone_number = "090111111111"
     @buy.valid?
-    binding.pry
     expect(@buy.errors.full_messages).to include("Phone number is invalid")
   end
 end
