@@ -49,4 +49,9 @@ describe Buy do
     @buy.valid?
     expect(@buy.errors.full_messages).to include('Phone number is invalid')
   end
+  it "電話番号はハイフンがあると保存できない" do
+    @buy.phone_number = "090-1111-1111"
+    @buy.valid?
+    expect(@buy.errors.full_messages).to include("Phone number is invalid")
+  end
 end
